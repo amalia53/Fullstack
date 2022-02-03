@@ -1,5 +1,6 @@
 # Fullstack
 
-## Tehtävät
+[Osa 0](https://github.com/amalia53/Fullstack/tree/main/part0)
 
-[Osa 1](https://github.com/amalia53/Fullstack/tree/main/part0)
+<summary>Tehtävät</summary>
+
