@@ -1,3 +1,3 @@
 # Osa 1
 
-[Kurssitiedot](https://github.com/amalia53/Fullstack/new/main/part1/kurssitiedot)
+[Kurssitiedot](https://github.com/amalia53/Fullstack/tree/main/part1/kurssitiedot)
