@@ -2,8 +2,11 @@
 
 [Osa 0](https://github.com/amalia53/Fullstack/tree/main/part0)
 
-<summary>Tehtävät</summary>
+<details>
+  <summary>Tehtävät</summary>
+  
+  moi
+</details>
 
-m
-k
+
 
