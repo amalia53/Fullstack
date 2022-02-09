@@ -18,4 +18,6 @@
   [kurssitiedot](https://github.com/amalia53/Fullstack/blob/main/part1/kurssitiedot)
 
   [unicafe](https://github.com/amalia53/Fullstack/blob/main/part1/unicafe)
+  
+  [anekdootit](https://github.com/amalia53/Fullstack/blob/main/part1/anekdootit)
 </details>
