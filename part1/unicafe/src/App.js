@@ -4,12 +4,9 @@ const Button = (props) => (
   <button onClick={props.handleClick}>{props.text}</button>
 )
 
-const Lkm = ({ good, neutral, bad, all}) => (
+const StatisticsLine = ({ text, value }) => (
   <div>
-    <p>Good: {good}</p>
-    <p>Neutral: {neutral}</p>
-    <p>Bad: {bad}</p>
-    <p>All: {all}</p>
+    <p>{text}: {value}</p>
   </div>
 )
 
@@ -29,15 +26,21 @@ const Statistics = ({ good, neutral, bad }) => {
 
   if (all() === 0) {
     return (
-      <Lkm good={good} neutral={neutral} bad={bad} all={all()}/>
+      <div>
+        <StatisticsLine text='Good: ' value={good} />
+        <StatisticsLine text='Neutral: ' value={neutral} />
+        <StatisticsLine text='Bad: ' value={bad} />
+      </div>
     )
   }
 
   return (
     <div>
-      <Lkm good={good} neutral={neutral} bad={bad} all={all()}/>
-      <p>Average: {average()}</p>
-      <p>Positive: {positive()} %</p>
+      <StatisticsLine text='Good: ' value={good} />
+      <StatisticsLine text='Neutral: ' value={neutral} />
+      <StatisticsLine text='Bad: ' value={bad} />
+      <StatisticsLine text='Average: ' value={average()} />
+      <StatisticsLine text='Positive: ' value={positive()} />
     </div>
   )
 }
