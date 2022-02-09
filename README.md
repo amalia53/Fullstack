@@ -16,4 +16,6 @@
   <summary>Alakohdat</summary>
   
   [kurssitiedot](https://github.com/amalia53/Fullstack/blob/main/part1/kurssitiedot)
+
+  [unicafe](https://github.com/amalia53/Fullstack/blob/main/part1/unicafe)
 </details>
