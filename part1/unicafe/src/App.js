@@ -6,7 +6,8 @@ const Button = (props) => (
 
 const StatisticsLine = ({ text, value }) => (
   <div>
-    <p>{text}: {value}</p>
+    <td>{text}</td>
+    <td>{value}</td>
   </div>
 )
 
@@ -34,12 +35,13 @@ const Statistics = ({ good, neutral, bad }) => {
               <td>{good}</td>
             </tr>
             <tr>
-              <td>Bad</td>
-              <td>{bad}</td>
-            </tr>
-            <tr>
               <td>Neutral</td>
               <td>{neutral}</td>
+
+            </tr>
+            <tr>
+              <td>Bad</td>
+              <td>{bad}</td>
             </tr>
             <tr>
               <td>All</td>
