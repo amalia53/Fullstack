@@ -27,18 +27,30 @@ const App = () => {
 
   const vote = (selected) => {
     const copy = [...points]
-    console.log('Selected:', selected)
     copy[selected] += 1
-    console.log(copy)
     setPoints(copy)
+  }
+
+  const mostVoted = () => {
+    console.log(points)
+    const mostVotes = Math.max.apply(Math, points)
+    if (mostVotes === 0) {
+      return 'No votes yet'
+    }
+    return (
+      anecdotes[points.indexOf(mostVotes)]
+    )
   }
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected]}
       <p></p>
       <button onClick={() => vote(selected)}>VOTE</button>
       <button onClick={nextAnecdote(random)}>NEXT ANECDOTE</button>
+      <h2>Anecdote with most votes</h2>
+      {mostVoted()}
     </div>
   )
 }
