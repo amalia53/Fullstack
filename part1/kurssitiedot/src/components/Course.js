@@ -2,21 +2,13 @@ import React from 'react'
 import Content from './Content'
 import Header from './Header'
 
-const Course = (name, id, parts) => {
-	const course = {
-		name: name,
-		parts: parts
-	}
+const Course = ({ course }) => {
 	return (
-		{
-			id: id,
-			text: 
 			<>
 				<Header course={course} />
 				<Content course={course} />
 				<b>Total of <Total course={course} /> exercises</b>
 			</>
-		}
 	)
 }
 

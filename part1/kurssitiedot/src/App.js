@@ -2,8 +2,10 @@ import React from 'react'
 import Course from './components/Course'
 
 const App = () => {
-  const courses = [
-    Course('Half Stack application development', 1, [
+  const courses = [{
+    name: 'Half Stack application development',
+    id: 1,
+    parts: [
       {
         name: 'Fundamentals of React',
         exercises: 10
@@ -20,8 +22,12 @@ const App = () => {
         name: 'Communicating with server',
         exercises: 12
       }
-    ]),
-    Course('Node.js', 2,[
+    ]
+  },
+  {
+    name: 'Node.js',
+    id: 2,
+    parts: [
       {
         name: 'Routing',
         exercises: 3,
@@ -32,11 +38,12 @@ const App = () => {
         exercises: 7,
         id: 2
       }
-    ])
+    ]
+  }
   ]
   return (
     <>
-      {courses.map(course => <div key={course.id}>{course.text}</div> )}
+      {courses.map(course => <Course key={course.id} course={course}></Course>)}
     </>
   )
 }
