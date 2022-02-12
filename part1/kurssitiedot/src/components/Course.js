@@ -34,14 +34,11 @@ const Course = () => {
 }
 
 const Total = ({ course }) => {
-	let total = 0
-	course.parts.forEach(value => {
-		total += value.exercises
-	})
-
+	const exercises = course.parts.map(part => part.exercises)
+	const reducer = (previousValue, currentValue) => previousValue + currentValue
 	return (
 		<>
-			{total}
+			{exercises.reduce(reducer)}
 		</>
 	)
 }
