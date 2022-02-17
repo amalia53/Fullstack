@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import Person from './components/Person'
+import Filter from './components/Filter'
+import NewPerson from './components/NewPerson'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -14,22 +16,20 @@ const App = () => {
   const [filtered, setFiltered] = useState(false)
 
   const shown = filtered
-    ? persons
-    : persons.filter(person => person.name.toLowerCase().includes(search.toLowerCase()))
+    ? Filter(persons, search)
+    : persons
 
   const addPerson = (event) => {
     event.preventDefault()
     if (persons.some(person => person.name === newName)) {
       window.alert(`${newName} is already added to phonebook`)
     } else {
-      const newPerson = {
-        name: newName,
-        number: newNumber
-      }
-      setPersons(persons.concat(newPerson))
-      setNewName('')
-      setNewNumber('')
+      setPersons(persons.concat(NewPerson(newName, newNumber)))
     }
+
+
+    setNewName('')
+    setNewNumber('')
   }
 
   const handleNameChange = (event) => {
@@ -43,7 +43,7 @@ const App = () => {
   const handleSearch = (event) => {
     const searchInput = event.target.value
     setSearch(searchInput)
-    setFiltered(searchInput.length === 0)
+    setFiltered(searchInput.length !== 0)
   }
 
   return (
