@@ -26,8 +26,6 @@ const App = () => {
     } else {
       setPersons(persons.concat(NewPerson(newName, newNumber)))
     }
-
-
     setNewName('')
     setNewNumber('')
   }
