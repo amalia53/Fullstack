@@ -29,4 +29,6 @@
   [kurssitiedot](https://github.com/amalia53/Fullstack/blob/main/part1/kurssitiedot)
 
   [puhelinluettelo](https://github.com/amalia53/Fullstack/tree/main/part2/puhelinluettelo)
+
+  [maiden tiedot](https://github.com/amalia53/Fullstack/tree/main/part2/maidentiedot)
 </details>
