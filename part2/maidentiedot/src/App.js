@@ -13,12 +13,10 @@ const App = () => {
     axios
       .get('https://restcountries.com/v3.1/all')
       .then(response => {
-        console.log(response)
         setCountries(response.data)
       })
   }, [])
 
-  console.log('search:', search);
   const shown = filtered
     ? Filter(countries, search)
     : []
@@ -41,11 +39,10 @@ const App = () => {
 }
 
 const showResults = (shown) => {
-  console.log('Total of', shown.length, 'results')
   if (shown.length > 10) {
     return 'Too many matches, specify another filter'
   }
-  else if (shown.length > 1 ) {
+  else if (shown.length > 1) {
     return shown.map(country =>
       <List key={country.name.common} listItem={country.name.common}></List>)
   }
