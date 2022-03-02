@@ -3,7 +3,6 @@ import Person from './components/Person'
 import Filter from './components/Filter'
 import NewPerson from './components/NewPerson'
 import numberService from './services/numbers'
-import numbers from './services/numbers'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -36,6 +35,13 @@ const App = () => {
     }
     setNewName('')
     setNewNumber('')
+  }
+
+  const deletePerson = (id, name) => {
+    window.alert(`Are you sure you want to delete ${name}?`)
+    numberService
+      .remove(id)
+      .then(setPersons(persons.filter(person => person.id !== id)))
   }
 
   const handleNameChange = (event) => {
@@ -81,7 +87,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       {shown.map(person =>
-        <Person key={person.name} name={person.name} number={person.number}></Person>)}
+        <Person key={person.name} name={person.name} number={person.number} deletePerson={() => deletePerson(person.id, person.name)}></Person>)}
     </div>
   )
 }

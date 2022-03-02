@@ -10,8 +10,14 @@ const getAll = () => (
 
 const add = (newObject) => (
   axios
-  .post(url, newObject)
-  .then(response => response.data)
+    .post(url, newObject)
+    .then(response => response.data)
 )
 
-export default { getAll, add }
+const remove = (id) => (
+  axios
+    .delete(`${url}/${id}`)
+)
+
+
+export default { getAll, add, remove }

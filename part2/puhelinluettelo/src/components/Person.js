@@ -1,9 +1,10 @@
 import React from 'react'
 
-const Person = (props) => {
+const Person = ({ name, number, deletePerson }) => {
   return (
     <li>
-      {props.name} : {props.number}
+      {name} : {number}
+     &nbsp; <button onClick={deletePerson}>DELETE</button>
     </li>
   )
 }
