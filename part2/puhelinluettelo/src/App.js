@@ -38,7 +38,7 @@ const App = () => {
   }
 
   const deletePerson = (id, name) => {
-    window.alert(`Are you sure you want to delete ${name}?`)
+    window.confirm(`Are you sure you want to delete ${name}?`)
     numberService
       .remove(id)
       .then(setPersons(persons.filter(person => person.id !== id)))
