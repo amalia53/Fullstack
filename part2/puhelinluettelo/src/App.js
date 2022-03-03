@@ -98,19 +98,19 @@ const App = () => {
       <Notification message={message} isError={isError} />
       <form onSubmit={addPerson}>
         <div>
-          Name: <input
+          Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
             value={newName}
             onChange={handleNameChange}
           />
           <p></p>
-          Phone number: <input
+          Number:&nbsp;&nbsp;&nbsp;&nbsp;<input
             value={newNumber}
             onChange={handleNumberChange}
           />
         </div>
         <div>
           <p></p>
-          <button type="submit">add</button>
+          <button className='add' type="submit">ADD</button>
         </div>
       </form>
       <h2>Numbers</h2>
