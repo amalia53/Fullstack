@@ -3,6 +3,7 @@ import Person from './components/Person'
 import Filter from './components/Filter'
 import NewPerson from './components/NewPerson'
 import numberService from './services/numbers'
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -10,9 +11,8 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [search, setSearch] = useState('')
   const [filtered, setFiltered] = useState(false)
-
-  const url = 'http://localhost:3001/persons'
-
+  const [message, setMessage] = useState()
+  const [isError, setIsError] = useState(false)
 
   useEffect(() => {
     numberService
@@ -33,6 +33,8 @@ const App = () => {
       numberService
         .add(NewPerson(newName, newNumber))
         .then(newPerson => setPersons(persons.concat(newPerson)))
+      setMessage(`Added ${newName}`)
+      setTimeout(() => setMessage(), 3000)
     }
     setNewName('')
     setNewNumber('')
@@ -43,12 +45,16 @@ const App = () => {
     numberService
       .remove(id)
       .then(setPersons(persons.filter(person => person.id !== id)))
+    setMessage(`Deleted ${name}`)
+    setTimeout(() => setMessage(), 3000)
   }
 
   const updateNumber = (person, newNumber) => {
     const newPerson = { ...person, number: newNumber }
     window.confirm(`${person.name} is already added to phonebook. Do you want to replace the old number with a new one?`)
-    
+    setMessage(`Updated ${person.name}`)
+    setTimeout(() => setMessage(), 3000)
+
     numberService
       .update(person.id, newPerson)
       .then(setPersons(persons.map(person =>
@@ -56,7 +62,13 @@ const App = () => {
           ? person
           : newPerson
       )))
-      .catch(error => alert(`${person.name} was already deleted from server`))
+      .catch(error => {
+        setMessage(`${person.name} was already deleted from server`)
+        setIsError(true)
+        setTimeout(() => setMessage(), 6000)
+        setTimeout(() => setIsError(false), 6000)
+      }
+      )
   }
 
   const handleNameChange = (event) => {
@@ -75,7 +87,7 @@ const App = () => {
 
   return (
     <div>
-      <h3>Phonebook</h3>
+      <h1>Phonebook</h1>
       <div>
         Search for <input
           value={search}
@@ -83,14 +95,15 @@ const App = () => {
         />
       </div>
       <h2>Add a new entry</h2>
+      <Notification message={message} isError={isError} />
       <form onSubmit={addPerson}>
         <div>
-          name: <input
+          Name: <input
             value={newName}
             onChange={handleNameChange}
           />
           <p></p>
-          phone number: <input
+          Phone number: <input
             value={newNumber}
             onChange={handleNumberChange}
           />

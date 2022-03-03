@@ -1,11 +1,6 @@
 {
   "persons": [
     {
-      "name": "Arto Hellas",
-      "number": "040-123456",
-      "id": 1
-    },
-    {
       "name": "Ada Lovelace",
       "number": "39-44-5323523",
       "id": 2
@@ -29,6 +24,21 @@
       "name": "Sanna Cuteface",
       "number": ";)",
       "id": 7
+    },
+    {
+      "name": "Charlie BitMyFinger",
+      "number": ":F",
+      "id": 9
+    },
+    {
+      "name": "Jelle Punny",
+      "number": "1",
+      "id": 10
+    },
+    {
+      "name": "Amalia Alien",
+      "number": "UF0",
+      "id": 11
     }
   ]
 }
