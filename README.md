@@ -2,7 +2,6 @@
 
 [Osa 0](https://github.com/amalia53/Fullstack/tree/main/part0)
 <details>
-  
   <summary>Lisää</summary>
   
   [0.4](https://github.com/amalia53/Fullstack/blob/main/part0/new_note_kaavio.pgn)
@@ -14,8 +13,6 @@
 
 [Osa 1](https://github.com/amalia53/Fullstack/tree/main/part1)
 <details>
-  
-  
   <summary>Lisää</summary>
   
   [Kurssitiedot](https://github.com/amalia53/Fullstack/blob/main/part1/kurssitiedot)
@@ -27,7 +24,6 @@
 
 [Osa 2](https://github.com/amalia53/Fullstack/tree/main/part2)
 <details>
-  
   <summary>Lisää</summary>
 
   [Kurssitiedot](https://github.com/amalia53/Fullstack/blob/main/part1/kurssitiedot)
