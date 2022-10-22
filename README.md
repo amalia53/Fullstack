@@ -35,5 +35,14 @@
 
 [Osa 3](https://github.com/amalia53/Fullstack3/)
 <details>
+  <summary>Tehtävät</summary>
+  
   [Puhelinluettelo-sovellus](https://fullstackphonebook.fly.dev)
- </details>
+</details>
+
+[Osa 4](https://github.com/amalia53/Fullstack/tree/main/part4)
+<details>
+  <summary>Tehtävät</summary>
+  
+  [Blogilista]([https://fullstackphonebook.fly.dev](https://github.com/amalia53/Fullstack/tree/main/part4/blogilista))
+</details>
