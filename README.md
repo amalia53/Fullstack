@@ -44,5 +44,5 @@
 <details>
   <summary>Tehtävät</summary>
   
-  [Blogilista]([https://fullstackphonebook.fly.dev](https://github.com/amalia53/Fullstack/tree/main/part4/blogilista))
+  [Blogilista]([https://fullstackphonebook.fly.dev](https://github.com/amalia53/Fullstack/tree/main/part4/blogilista)
 </details>
