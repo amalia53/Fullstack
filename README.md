@@ -34,3 +34,6 @@
 </details>
 
 [Osa 3](https://github.com/amalia53/Fullstack3/)
+<details>
+  [Puhelinluettelo-sovellus](https://fullstackphonebook.fly.dev)
+ </details>
