@@ -32,3 +32,5 @@
 
   [Maiden tiedot](https://github.com/amalia53/Fullstack/tree/main/part2/maidentiedot)
 </details>
+
+[Osa 3](https://github.com/amalia53/Fullstack3/)
