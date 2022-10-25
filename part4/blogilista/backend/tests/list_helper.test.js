@@ -2,6 +2,13 @@ const listHelper = require('../utils/list_helper')
 
 const empty = []
 
+const blog = [{
+  title: "title",
+  author: "author",
+  url: "url",
+  likes: 0,
+}]
+
 const blogs = [
   {
     title: "title",
@@ -36,19 +43,44 @@ describe("total likes", () => {
 
     expect(result).toBe(0)
   })
-  
-  test("of list of three blogs returns total of likes of all blogs", () => {
+
+  test(" of list of one blog returns likes of the blog", () => {
+
+    const result = listHelper.totalLikes(blog)
+
+    expect(result).toBe(blog[0].likes)
+  })
+
+  test("of list returns total of likes of all blogs", () => {
     const result = listHelper.totalLikes(blogs)
 
     expect(result).toBe(6)
   })
+})
 
-  test(" of list of one blog returns likes of the blog", () => {
-    blogs.pop()
-    blogs.pop()
+describe("favorite", () => {
 
-    const result = listHelper.totalLikes(blogs)
+  test("of an empty list returns null", () => {
+    const result = listHelper.favoriteBlog(empty)
 
-    expect(result).toBe(blogs[0].likes)
+    expect(result).toEqual(null)
+  })
+
+  test("of list of one returns the only blog", () => {
+    const result = listHelper.favoriteBlog(blog)
+
+    expect(result).toEqual(blog[0])
+  })
+
+  test("of all blogs returns the one with most likes", () => {
+
+    const result = listHelper.favoriteBlog(blogs)
+
+    expect(result).toEqual({
+      title: "title3",
+      author: "author3",
+      url: "url3",
+      likes: 3,
+    })
   })
 })
