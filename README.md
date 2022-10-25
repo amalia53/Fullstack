@@ -46,3 +46,5 @@
   
   [Blogilista](https://github.com/amalia53/Fullstack/tree/main/part4/blogilista)
 </details>
+
+Skipattu 4.6.-4.7.
