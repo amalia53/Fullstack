@@ -44,6 +44,27 @@ test('identificator is named id', async () => {
   response.body.forEach(blog => expect(blog.id).toBeDefined())
 })
 
+test('a blog can be added', async () => {
+  const newBlog = {
+    "title": "New title",
+    "author": "New author",
+    "url": "New url",
+    "likes": 3
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const response = await api.get('/api/blogs')
+  expect(response.body).toHaveLength(initialBlogs.length + 1)
+
+  const titles = response.body.map(r => r.title)
+  expect(titles).toContain('New title')
+})
+
 afterAll(async () => {
     await mongoose.connection.close()
 })
