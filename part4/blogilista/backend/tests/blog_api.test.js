@@ -22,10 +22,7 @@ const initialBlogs = [
 
 beforeEach(async () => {
   await Blog.deleteMany({})
-  let blogObject = new Blog(initialBlogs[0])
-  await blogObject.save()
-  blogObject = new Blog(initialBlogs[1])
-  await blogObject.save()
+  await Blog.insertMany(initialBlogs)
 })
 
 test('blogs are returned as json', async () => {
@@ -40,6 +37,12 @@ test('correct amount of blogs is returned', async () => {
 
     expect(response.body).toHaveLength(initialBlogs.length)
   })
+
+test('identificator is named id', async () => {
+  const response = await api.get('/api/blogs')
+  
+  response.body.forEach(blog => expect(blog.id).toBeDefined())
+})
 
 afterAll(async () => {
     await mongoose.connection.close()
