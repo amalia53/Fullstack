@@ -81,6 +81,37 @@ test('when no value is given to likes, is saved as 0 likes', async () => {
 
 })
 
+test('when no url is given, bad request', async () => {
+  const newBlog = {
+    "title": "New title without url",
+    "author": "New author without url",
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+
+  const response = await api.get('/api/blogs')
+  expect(response.body).toHaveLength(initialBlogs.length)
+})
+
+
+test('when no title is given, bad request', async () => {
+  const newBlog = {
+    "author": "New author without title",
+    "url": "New url without title"
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+
+  const response = await api.get('/api/blogs')
+  expect(response.body).toHaveLength(initialBlogs.length)
+})
+
 afterAll(async () => {
     await mongoose.connection.close()
 })
