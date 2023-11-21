@@ -65,6 +65,22 @@ test('a blog can be added', async () => {
   expect(titles).toContain('New title')
 })
 
+test('when no value is given to likes, is saved as 0 likes', async () => {
+  const newBlog = {
+    "title": "New title",
+    "author": "New author",
+    "url": "New url"
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+
+  const response = await api.get('/api/blogs')
+  expect(response.body[initialBlogs.length].likes).toBe(0)
+
+})
+
 afterAll(async () => {
     await mongoose.connection.close()
 })
