@@ -33,14 +33,14 @@ test('blogs are returned as json', async () => {
 })
 
 test('correct amount of blogs is returned', async () => {
-    const response = await api.get('/api/blogs')
+  const response = await api.get('/api/blogs')
 
-    expect(response.body).toHaveLength(initialBlogs.length)
-  })
+  expect(response.body).toHaveLength(initialBlogs.length)
+})
 
 test('identificator is named id', async () => {
   const response = await api.get('/api/blogs')
-  
+
   response.body.forEach(blog => expect(blog.id).toBeDefined())
 })
 
@@ -112,6 +112,22 @@ test('when no title is given, bad request', async () => {
   expect(response.body).toHaveLength(initialBlogs.length)
 })
 
+test('a blog can be deleted', async () => {
+
+  const response = await api.get('/api/blogs')
+  const toBeDeleted = response.body[0]
+  
+  await api
+    .delete(`/api/blogs/${toBeDeleted.id}`)
+    .expect(204)
+
+  const response2 = await api.get('/api/blogs')
+  expect(response2.body).toHaveLength(initialBlogs.length - 1)
+
+  const titles = response2.body.map(r => r.title)
+  expect(titles).not.toContain(toBeDeleted.title)
+})
+
 afterAll(async () => {
-    await mongoose.connection.close()
+  await mongoose.connection.close()
 })
