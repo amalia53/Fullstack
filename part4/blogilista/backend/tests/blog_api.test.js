@@ -128,6 +128,29 @@ test('a blog can be deleted', async () => {
   expect(titles).not.toContain(toBeDeleted.title)
 })
 
+test('a blog can be updated', async () => {
+
+  const response = await api.get('/api/blogs')
+  const toBeUpdated = response.body[1]
+  const newLikes = 3
+
+  const updated = {
+    "title": "Test title 2",
+    "author": "Test author 2",
+    "url": "Test url 2",
+    "likes": newLikes
+  }
+  
+  await api
+    .put(`/api/blogs/${toBeUpdated.id}`)
+    .send(updated)
+
+  const response2 = await api.get('/api/blogs')
+  expect(response2.body).toHaveLength(initialBlogs.length)
+
+  expect(response2.body[1].likes).toBe(newLikes)
+})
+
 afterAll(async () => {
   await mongoose.connection.close()
 })
