@@ -116,7 +116,7 @@ test('a blog can be deleted', async () => {
 
   const response = await api.get('/api/blogs')
   const toBeDeleted = response.body[0]
-  
+
   await api
     .delete(`/api/blogs/${toBeDeleted.id}`)
     .expect(204)
@@ -140,7 +140,7 @@ test('a blog can be updated', async () => {
     "url": "Test url 2",
     "likes": newLikes
   }
-  
+
   await api
     .put(`/api/blogs/${toBeUpdated.id}`)
     .send(updated)
