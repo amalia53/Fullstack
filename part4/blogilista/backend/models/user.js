@@ -5,9 +5,15 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, 'Username is required'],
         minLength: [3, 'Username must be at least 3 characters long']
-      },
+    },
     name: String,
     passwordHash: String,
+    blogs: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Blog'
+        }
+    ]
 })
 
 userSchema.set('toJSON', {
