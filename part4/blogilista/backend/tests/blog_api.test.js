@@ -55,6 +55,7 @@ test('a blog can be added', async () => {
   await api
     .post('/api/blogs')
     .send(newBlog)
+    .set('Authorization', request.token)
     .expect(201)
     .expect('Content-Type', /application\/json/)
 
