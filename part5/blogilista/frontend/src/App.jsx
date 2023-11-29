@@ -4,16 +4,12 @@ import loginService from './services/login'
 import blogService from './services/blogs'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
-import CreateBlogForm from './components/CreateBlogForm'
+import BlogForm from './components/BlogForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [message, setMessage] = useState()
   const [isError, setIsError] = useState(false)
-
-  const [newTitle, setNewTitle] = useState('')
-  const [newAuthor, setNewAuthor] = useState('')
-  const [newUrl, setNewUrl] = useState('')
   const [createVisible, setCreateVisible] = useState(false)
 
 
@@ -68,22 +64,13 @@ const App = () => {
     setUser(null)
   }
 
-  const handleCreation = async (event) => {
-    event.preventDefault()
-    const newBlog = {
-      title: newTitle,
-      author: newAuthor,
-      url: newUrl,
-    }
+  const handleCreation = async (blogObject) => {
     try {
-      const added = await blogService.create(newBlog)
-      setMessage(`A new blog ${newTitle} by ${newAuthor} added`)
+      const added = await blogService.create(blogObject)
+      setMessage(`A new blog added`)
       setTimeout(() => { setMessage() }, 4000)
       setBlogs(blogs.concat(added))
       setCreateVisible(false)
-      setNewTitle('')
-      setNewAuthor('')
-      setNewUrl('')
     } catch (e) {
       setIsError(true)
       setMessage(e.response.data.error)
@@ -102,15 +89,7 @@ const App = () => {
           <button onClick={() => setCreateVisible(true)}>CREATE A NEW BLOG</button>
         </div >
         <div style={showWhenVisible}>
-          <CreateBlogForm
-            title={newTitle}
-            author={newAuthor}
-            url={newUrl}
-            handleTitleChange={({ target }) => setNewTitle(target.value)}
-            handleAuthorChange={({ target }) => setNewAuthor(target.value)}
-            handleUrlChange={({ target }) => setNewUrl(target.value)}
-            handleSubmit={handleCreation}
-          />
+          <BlogForm createBlog={handleCreation} />
           <button onClick={() => setCreateVisible(false)}>CANCEL</button>
         </div>
       </div>
