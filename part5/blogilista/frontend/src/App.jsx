@@ -2,9 +2,12 @@ import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import loginService from './services/login'
 import blogService from './services/blogs'
+import Notification from './components/Notification'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
+  const [message, setMessage] = useState()
+  const [isError, setIsError] = useState(false)
   const [newTitle, setNewTitle] = useState('')
   const [newAuthor, setNewAuthor] = useState('')
   const [newUrl, setNewUrl] = useState('')
@@ -44,11 +47,11 @@ const App = () => {
       setUser(user)
       setUsername('')
       setPassword('')
-    } catch (exception) {
-      setErrorMessage('Wrong credentials')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
+    } catch (e) {
+      setIsError(true)
+      setMessage('Wrong credentials')
+      setTimeout(() => { setMessage() }, 4000)
+      setTimeout(() => setIsError(false), 4000)
     }
     console.log('logging in with', username)
   }
@@ -68,17 +71,27 @@ const App = () => {
       author: newAuthor,
       url: newUrl,
     }
+    try {
     const added = await blogService.create(newBlog)
+    setMessage(`A new blog ${newTitle} by ${newAuthor} added`)
+    setTimeout(() => { setMessage() }, 4000)
     setBlogs(blogs.concat(added))
     setNewTitle('')
     setNewAuthor('')
     setNewUrl('')
+    } catch (e) {
+      setIsError(true)
+      setMessage(e.response.data.error)
+      setTimeout(() => { setMessage() }, 4000)
+      setTimeout(() => setIsError(false), 4000)
+    }
   }
 
   if (user === null) {
     return (
       <div>
         <h2>Log in</h2>
+        <Notification message={message} isError={isError} />
         <form onSubmit={handleLogin}>
           <div>
             Username:
@@ -108,6 +121,7 @@ const App = () => {
         <h2>Blogs</h2>
         <div>{user.name} is logged in</div>
         <button onClick={handleLogout}>LOGOUT</button>
+        <Notification message={message} isError={isError} />
         <h3>Create new</h3>
         <form onSubmit={handleCreation}>
           <div>
