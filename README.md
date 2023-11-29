@@ -47,4 +47,13 @@
   [Blogilista](https://github.com/amalia53/Fullstack/tree/main/part4/blogilista)
 </details>
 
-Skipattu 4.6.-4.7., 4.22-4.23
+[Osa 5](https://github.com/amalia53/Fullstack/tree/main/part5)
+<details>
+  <summary>Tehtävät</summary>
+  
+  [Blogilista](https://github.com/amalia53/Fullstack/tree/main/part5/blogilista)
+</details>
+
+### Skipatut tehtävät
+4.6.-4.7. 
+4.22-4.23
