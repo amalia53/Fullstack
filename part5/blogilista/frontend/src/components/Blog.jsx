@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import blogService from '../services/blogs'
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog , handleLike }) => {
   const [viewMore, setViewMore] = useState(false)
 
   const blogStyle = {
@@ -11,10 +12,6 @@ const Blog = ({ blog }) => {
     marginBottom: 5
   }
 
-  const like = () => {
-    console.log('Liked!')
-  }
-
   const showMore = () => {
     return (
       <div>
@@ -22,7 +19,7 @@ const Blog = ({ blog }) => {
           {blog.url}
         </div>
         <div>
-          likes {blog.likes} <button onClick={() => like()}>like</button>
+          likes {blog.likes} <button onClick={() => handleLike(blog)}>like</button>
         </div>
         <div>
           Added by {blog.user.name}

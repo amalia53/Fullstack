@@ -69,13 +69,7 @@ const App = () => {
       const added = await blogService.create(blogObject)
       setMessage(`A new blog added`)
       setTimeout(() => { setMessage() }, 4000)
-      const userInfo = {
-        username: user.username,
-        name: user.name,
-        id: added.user
-      }
-      added.user = userInfo
-      setBlogs(blogs.concat(added))
+      updateBlogs()
       setCreateVisible(false)
     } catch (e) {
       setIsError(true)
@@ -83,6 +77,25 @@ const App = () => {
       setTimeout(() => { setMessage() }, 4000)
       setTimeout(() => setIsError(false), 4000)
     }
+  }
+
+  const handleLike = async (blogObject) => {
+    try {
+      const updated = await blogService.updateLikes(blogObject)
+      setMessage(`Likes updated`)
+      setTimeout(() => { setMessage() }, 4000)
+      updateBlogs()
+    } catch (e) {
+      setIsError(true)
+      setMessage('Update failed')
+      setTimeout(() => { setMessage() }, 4000)
+      setTimeout(() => setIsError(false), 4000)
+    }
+  }
+
+  const updateBlogs = async () => {
+    const newBlogs = await blogService.getAll()
+    setBlogs(newBlogs)
   }
 
   const createBlogForm = () => {
@@ -125,7 +138,7 @@ const App = () => {
         <Notification message={message} isError={isError} />
         {createBlogForm()}
         {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} />
+          <Blog key={blog.id} blog={blog} handleLike={handleLike}/>
         )}
       </div>
     )
