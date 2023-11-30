@@ -69,6 +69,12 @@ const App = () => {
       const added = await blogService.create(blogObject)
       setMessage(`A new blog added`)
       setTimeout(() => { setMessage() }, 4000)
+      const userInfo = {
+        username: user.username,
+        name: user.name,
+        id: added.user
+      }
+      added.user = userInfo
       setBlogs(blogs.concat(added))
       setCreateVisible(false)
     } catch (e) {
