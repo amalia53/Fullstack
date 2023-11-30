@@ -93,6 +93,23 @@ const App = () => {
     }
   }
 
+  const handleDeletion = async (blogObject) => {
+    try {
+      if (window.confirm(`Are you sure you want to delete ${blogObject.title} by ${blogObject.author}`)) {
+        const deleted = await blogService.deleteBlog(blogObject)
+        setMessage(`Deleted ${blogObject.title} by ${blogObject.author}`)
+        setTimeout(() => { setMessage() }, 4000)
+        updateBlogs()
+      }
+    } catch (e) {
+      setIsError(true)
+      setMessage(e.response.data.error)
+      setTimeout(() => { setMessage() }, 4000)
+      setTimeout(() => setIsError(false), 4000)
+    }
+
+  }
+
   const updateBlogs = async () => {
     const newBlogs = await blogService.getAll()
     setBlogs(newBlogs)
@@ -144,7 +161,11 @@ const App = () => {
         <Notification message={message} isError={isError} />
         {createBlogForm()}
         {blogs.sort(compareByLikes).map(blog =>
-          <Blog key={blog.id} blog={blog} handleLike={handleLike} />
+          <Blog
+            key={blog.id}
+            blog={blog}
+            handleLike={handleLike}
+            handleDeletion={handleDeletion} />
         )}
       </div>
     )
