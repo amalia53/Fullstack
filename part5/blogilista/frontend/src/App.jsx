@@ -98,6 +98,12 @@ const App = () => {
     setBlogs(newBlogs)
   }
 
+  function compareByLikes(a, b) {
+    if (a.likes > b.likes) return -1
+    if (a.likes < b.likes) return 1
+    return 0
+  }
+
   const createBlogForm = () => {
     const hideWhenVisible = { display: createVisible ? 'none' : '' }
     const showWhenVisible = { display: createVisible ? '' : 'none' }
@@ -137,8 +143,8 @@ const App = () => {
         <button onClick={handleLogout}>LOGOUT</button>
         <Notification message={message} isError={isError} />
         {createBlogForm()}
-        {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} handleLike={handleLike}/>
+        {blogs.sort(compareByLikes).map(blog =>
+          <Blog key={blog.id} blog={blog} handleLike={handleLike} />
         )}
       </div>
     )
