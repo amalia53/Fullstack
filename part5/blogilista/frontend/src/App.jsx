@@ -67,7 +67,7 @@ const App = () => {
   const handleCreation = async (blogObject) => {
     try {
       const added = await blogService.create(blogObject)
-      setMessage(`A new blog added`)
+      setMessage('A new blog added')
       setTimeout(() => { setMessage() }, 4000)
       updateBlogs()
       setCreateVisible(false)
@@ -82,7 +82,7 @@ const App = () => {
   const handleLike = async (blogObject) => {
     try {
       const updated = await blogService.updateLikes(blogObject)
-      setMessage(`Likes updated`)
+      setMessage('Likes updated')
       setTimeout(() => { setMessage() }, 4000)
       updateBlogs()
     } catch (e) {

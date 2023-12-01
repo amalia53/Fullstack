@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import blogService from '../services/blogs'
 
-const Blog = ({ blog , handleLike, handleDeletion }) => {
+const Blog = ({ blog, handleLike, handleDeletion }) => {
   const [viewMore, setViewMore] = useState(false)
 
   const blogStyle = {
@@ -25,7 +25,7 @@ const Blog = ({ blog , handleLike, handleDeletion }) => {
           Added by {blog.user.name}
         </div>
         <div>
-        <button onClick={() => handleDeletion(blog)}>DELETE</button>
+          <button onClick={() => handleDeletion(blog)}>DELETE</button>
         </div>
       </div>
     )
