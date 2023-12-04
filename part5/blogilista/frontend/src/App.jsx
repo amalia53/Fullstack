@@ -8,7 +8,7 @@ import BlogForm from './components/BlogForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [message, setMessage] = useState()
+  const [message, setMessage] = useState(null)
   const [isError, setIsError] = useState(false)
   const [createVisible, setCreateVisible] = useState(false)
 
@@ -50,7 +50,7 @@ const App = () => {
     } catch (e) {
       setIsError(true)
       setMessage('Wrong credentials')
-      setTimeout(() => { setMessage() }, 4000)
+      setTimeout(() => { setMessage(null) }, 4000)
       setTimeout(() => setIsError(false), 4000)
     }
     console.log('logging in with', username)
@@ -68,13 +68,13 @@ const App = () => {
     try {
       const added = await blogService.create(blogObject)
       setMessage('A new blog added')
-      setTimeout(() => { setMessage() }, 4000)
+      setTimeout(() => { setMessage(null) }, 4000)
       updateBlogs()
       setCreateVisible(false)
     } catch (e) {
       setIsError(true)
       setMessage(e.response.data.error)
-      setTimeout(() => { setMessage() }, 4000)
+      setTimeout(() => { setMessage(null) }, 4000)
       setTimeout(() => setIsError(false), 4000)
     }
   }
@@ -83,12 +83,12 @@ const App = () => {
     try {
       const updated = await blogService.updateLikes(blogObject)
       setMessage('Likes updated')
-      setTimeout(() => { setMessage() }, 4000)
+      setTimeout(() => { setMessage(null) }, 4000)
       updateBlogs()
     } catch (e) {
       setIsError(true)
       setMessage('Update failed')
-      setTimeout(() => { setMessage() }, 4000)
+      setTimeout(() => { setMessage(null) }, 4000)
       setTimeout(() => setIsError(false), 4000)
     }
   }
@@ -98,13 +98,13 @@ const App = () => {
       if (window.confirm(`Are you sure you want to delete ${blogObject.title} by ${blogObject.author}`)) {
         const deleted = await blogService.deleteBlog(blogObject)
         setMessage(`Deleted ${blogObject.title} by ${blogObject.author}`)
-        setTimeout(() => { setMessage() }, 4000)
+        setTimeout(() => { setMessage(null) }, 4000)
         updateBlogs()
       }
     } catch (e) {
       setIsError(true)
       setMessage(e.response.data.error)
-      setTimeout(() => { setMessage() }, 4000)
+      setTimeout(() => { setMessage(null) }, 4000)
       setTimeout(() => setIsError(false), 4000)
     }
 
