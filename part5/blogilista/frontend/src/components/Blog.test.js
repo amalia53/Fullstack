@@ -2,6 +2,7 @@
 import React from 'react'
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import Blog from './Blog'
 
 test('renders titlen and author', () => {
@@ -34,5 +35,28 @@ test('doesnt render url nor likes', () => {
 
   const likeElement = container.queryByText('likes 1')
   expect(likeElement).not.toBeInTheDocument()
+
+})
+
+test('clicking view button shows more information', async () => {
+  const blog = {
+    title: 'Test Title',
+    author: 'Test Author',
+    url: 'www.testurl.com',
+    likes: 1,
+    user: { name: 'Test Person' }
+  }
+
+  render(<Blog blog={blog} />)
+
+  const user = userEvent.setup()
+  const button = screen.getByText('VIEW')
+
+  await user.click(button)
+
+  screen.getByText('www.testurl.com')
+  screen.getByText('likes 1')
+  screen.getByText('Added by Test Person')
+
 
 })
