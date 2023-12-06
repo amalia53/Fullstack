@@ -141,6 +141,7 @@ const App = () => {
   if (user === null) {
     return (
       <div>
+        <h1>Blogs</h1>
         <h2>Log in</h2>
         <Notification message={message} isError={isError} />
         <LoginForm

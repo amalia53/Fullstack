@@ -1,6 +1,11 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true },
+  env: {
+    browser: true,
+    es2020: true,
+    "jest/globals": true,
+    "cypress/globals": true
+  },
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -10,31 +15,31 @@ module.exports = {
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   settings: { react: { version: '18.2' } },
-  plugins: ['react-refresh', 'jest'],
+  plugins: ['react-refresh', 'jest', 'react', 'cypress'],
   rules: {
     "indent": [
-        "error",
-        2  
+      "error",
+      2
     ],
     "linebreak-style": [
-        "error",
-        "unix"
+      "error",
+      "unix"
     ],
     "quotes": [
-        "error",
-        "single"
+      "error",
+      "single"
     ],
     "semi": [
-        "error",
-        "never"
+      "error",
+      "never"
     ],
     "eqeqeq": "error",
     "no-trailing-spaces": "error",
     "object-curly-spacing": [
-        "error", "always"
+      "error", "always"
     ],
     "arrow-spacing": [
-        "error", { "before": true, "after": true }
+      "error", { "before": true, "after": true }
     ],
     "no-console": 0,
     "react/prop-types": 0,
