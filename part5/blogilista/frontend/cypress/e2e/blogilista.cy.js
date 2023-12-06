@@ -49,7 +49,7 @@ describe('Blogilista', function () {
       cy.get('#newAuthor').type('New Author')
       cy.get('#newUrl').type('New Url')
       cy.get('#createButton').click()
-
+      cy.contains('New Title by New Author')
     })
   })
 })
