@@ -51,5 +51,23 @@ describe('Blogilista', function () {
       cy.get('#createButton').click()
       cy.contains('New Title by New Author')
     })
+
+    describe('A blog', function () {
+      beforeEach(function () {
+        cy.get('#showCreateButton').click()
+        cy.get('#newTitle').type('New Title')
+        cy.get('#newAuthor').type('New Author')
+        cy.get('#newUrl').type('New Url')
+        cy.get('#createButton').click()
+      })
+
+      it('can be liked', function () {
+        cy.contains('VIEW')
+        cy.get('#viewMoreButton').click()
+        cy.contains('likes 0')
+        cy.get('#likeButton').click()
+        cy.contains('likes 1')
+      })
+    })
   })
 })

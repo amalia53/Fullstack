@@ -19,7 +19,7 @@ const Blog = ({ blog, handleLike, handleDeletion }) => {
           {blog.url}
         </div>
         <div>
-          likes {blog.likes} <button onClick={() => handleLike(blog)}>LIKE</button>
+          likes {blog.likes} <button id="likeButton" onClick={() => handleLike(blog)}>LIKE</button>
         </div>
         <div>
           Added by {blog.user.name}
@@ -33,7 +33,7 @@ const Blog = ({ blog, handleLike, handleDeletion }) => {
 
   return (
     <div style={blogStyle}>
-      {blog.title} by {blog.author} <button onClick={() => setViewMore(!viewMore)}>{viewMore ? 'HIDE' : 'VIEW'}</button>
+      {blog.title} by {blog.author} <button id="viewMoreButton" onClick={() => setViewMore(!viewMore)}>{viewMore ? 'HIDE' : 'VIEW'}</button>
       {viewMore && showMore()}
     </div>
   )
