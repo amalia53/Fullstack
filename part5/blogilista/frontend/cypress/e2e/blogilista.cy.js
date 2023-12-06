@@ -26,11 +26,30 @@ describe('Blogilista', function () {
       cy.get('#login-button').click()
     })
 
-    it.only('fails with wrong credentials', function () {
+    it('fails with wrong credentials', function () {
       cy.get('#username').type('testperson')
       cy.get('#password').type('wrongpassword')
       cy.get('#login-button').click()
       cy.get('.error').contains('Wrong credentials')
+    })
+  })
+
+  describe('When logged in', function () {
+    beforeEach(function () {
+      cy.get('#username').type('testperson')
+      cy.get('#password').type('testpassword')
+      cy.get('#login-button').click()
+    })
+
+    it('A blog can be created', function () {
+      cy.contains('CREATE A NEW BLOG')
+      cy.get('#showCreateButton').click()
+      cy.contains('Create new')
+      cy.get('#newTitle').type('New Title')
+      cy.get('#newAuthor').type('New Author')
+      cy.get('#newUrl').type('New Url')
+      cy.get('#createButton').click()
+
     })
   })
 })

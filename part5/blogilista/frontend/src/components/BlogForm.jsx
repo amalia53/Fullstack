@@ -24,21 +24,21 @@ const BlogForm = ({ createBlog }) => {
       <h3>Create new</h3>
       <form onSubmit={handleCreation}>
         <div>
-          Title: <input type="text" value={newTitle}
+          Title: <input id="newTitle" type="text" value={newTitle}
             onChange={({ target }) => setNewTitle(target.value)} 
             placeholder='write title here...'/>
         </div>
         <div>
-          Author: <input type="text" value={newAuthor}
+          Author: <input id="newAuthor" type="text" value={newAuthor}
             onChange={({ target }) => setNewAuthor(target.value)} 
             placeholder='write name here...'/>
         </div>
         <div>
-          Url: <input type="text" value={newUrl}
+          Url: <input id="newUrl" type="text" value={newUrl}
             onChange={({ target }) => setNewUrl(target.value)} 
             placeholder='write url here...'/>
         </div>
-        <button type="submit">CREATE</button>
+        <button id="createButton" type="submit">CREATE</button>
       </form>
     </div>
   )

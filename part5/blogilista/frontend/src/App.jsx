@@ -128,11 +128,11 @@ const App = () => {
     return (
       <div>
         < div style={hideWhenVisible} >
-          <button onClick={() => setCreateVisible(true)}>CREATE A NEW BLOG</button>
+          <button id="showCreateButton" onClick={() => setCreateVisible(true)}>CREATE A NEW BLOG</button>
         </div >
         <div style={showWhenVisible}>
           <BlogForm createBlog={handleCreation} />
-          <button onClick={() => setCreateVisible(false)}>CANCEL</button>
+          <button id="cancelCreateButton" onClick={() => setCreateVisible(false)}>CANCEL</button>
         </div>
       </div>
     )
