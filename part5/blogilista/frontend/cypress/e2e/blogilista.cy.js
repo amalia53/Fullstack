@@ -59,15 +59,21 @@ describe('Blogilista', function () {
         cy.get('#newAuthor').type('New Author')
         cy.get('#newUrl').type('New Url')
         cy.get('#createButton').click()
+        cy.get('#viewMoreButton').click()
       })
 
       it('can be liked', function () {
-        cy.contains('VIEW')
-        cy.get('#viewMoreButton').click()
         cy.contains('likes 0')
         cy.get('#likeButton').click()
         cy.contains('likes 1')
       })
+      it('can be deleted', function () {
+        cy.contains('New Title')
+        cy.contains('DELETE')
+        cy.get('#deleteButton').click()
+        cy.contains('New Title').should('not.exist')
+      })
+
     })
   })
 })
