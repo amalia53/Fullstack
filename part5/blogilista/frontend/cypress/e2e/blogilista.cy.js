@@ -1,14 +1,14 @@
 
 describe('Blogilista', function () {
   beforeEach(function () {
-    cy.visit('http://localhost:5173')
-    cy.request('POST', 'http://localhost:3003/api/testing/reset')
-    const user = {
+    cy.visit('')
+    cy.request('POST', `${Cypress.env('BACKEND')}/testing/reset`)
+
+    cy.createUser({
       name: 'Test Person',
       username: 'testperson',
       password: 'testpassword'
-    }
-    cy.request('POST', 'http://localhost:3003/api/users/', user)
+    })
   })
 
   it('Login form is shown', function () {
@@ -36,9 +36,7 @@ describe('Blogilista', function () {
 
   describe('When logged in', function () {
     beforeEach(function () {
-      cy.get('#username').type('testperson')
-      cy.get('#password').type('testpassword')
-      cy.get('#login-button').click()
+      cy.login({ username: 'testperson', password: 'testpassword' })
     })
 
     it('A blog can be created', function () {
@@ -54,26 +52,46 @@ describe('Blogilista', function () {
 
     describe('A blog', function () {
       beforeEach(function () {
-        cy.get('#showCreateButton').click()
-        cy.get('#newTitle').type('New Title')
-        cy.get('#newAuthor').type('New Author')
-        cy.get('#newUrl').type('New Url')
-        cy.get('#createButton').click()
-        cy.get('#viewMoreButton').click()
+        cy.createBlog({
+          title: 'New Title',
+          author: 'New Author',
+          url: 'New Url'
+        })
       })
 
       it('can be liked', function () {
+        cy.get('#viewMoreButton').click()
         cy.contains('likes 0')
         cy.get('#likeButton').click()
         cy.contains('likes 1')
       })
       it('can be deleted', function () {
-        cy.contains('New Title')
-        cy.contains('DELETE')
+        cy.createBlog({
+          title: 'Deletable Title',
+          author: 'Deletable Author',
+          url: 'Deletable Url'
+        })
+        cy.contains('Deletable Title by Deletable Author')
+          .contains('VIEW').click()
         cy.get('#deleteButton').click()
-        cy.contains('New Title').should('not.exist')
+        cy.contains('New Title')
+        cy.contains('Deleted Deletable Title by Deletable Author')
+        cy.wait(5000)
+        cy.contains('Deletable Title by Deletable Author').should('not.exist')
       })
-
+      it('deletion button can only be seen by adder', function () {
+        cy.get('#viewMoreButton').click()
+        cy.get('#deleteButton')
+        cy.contains('LOGOUT').click()
+        cy.createUser({
+          name: 'Test Person 2',
+          username: 'testperson2',
+          password: 'testpassword2'
+        })
+        cy.login({ username: 'testperson2', password: 'testpassword2' })
+        cy.get('#viewMoreButton').click()
+        cy.contains('DELETE').should('not.exist')
+      })
     })
   })
 })
