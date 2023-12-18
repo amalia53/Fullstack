@@ -54,6 +54,15 @@
   [Blogilista](https://github.com/amalia53/Fullstack/tree/main/part5/blogilista)
 </details>
 
+[Osa 6](https://github.com/amalia53/Fullstack/tree/main/part6)
+<details>
+  <summary>Tehtävät</summary>
+
+  [Unicafe](https://github.com/amalia53/Fullstack/tree/main/part6/unicafe-redux)
+  
+  [Anecdotes](https://github.com/amalia53/Fullstack/tree/main/part6/redux-anecdotes)
+</details>
+
 ### Skipatut tehtävät
 4.6.-4.7. 
 4.22-4.23
