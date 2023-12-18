@@ -11,13 +11,16 @@ const AnecdoteList = () => {
       return filtered
     }
   })
-
+  console.log(anecdotes)
   const dispatch = useDispatch()
 
   const vote = (id) => {
     console.log('vote', id)
     dispatch(addVote(id))
   }
+
+  const toSort = [...anecdotes]
+  const sorted = toSort.sort(compare)
 
   function compare(a, b) {
     if (a.votes > b.votes) {
@@ -30,7 +33,7 @@ const AnecdoteList = () => {
 
   return (
     <div>
-      {anecdotes.sort(compare).map(anecdote =>
+      {sorted.map(anecdote =>
         <div key={anecdote.id}>
           <div>
             {anecdote.content}
