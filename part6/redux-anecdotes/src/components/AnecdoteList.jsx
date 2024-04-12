@@ -11,11 +11,9 @@ const AnecdoteList = () => {
       return filtered
     }
   })
-  console.log(anecdotes)
   const dispatch = useDispatch()
 
   const vote = (id) => {
-    console.log('vote', id)
     dispatch(addVote(id))
   }
 

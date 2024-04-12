@@ -13,13 +13,5 @@ const filterSlice = createSlice({
   }
 })
 
-export const filterChange = filter => {
-  return {
-    type: 'SET_FILTER',
-    payload: filter,
-  }
-}
-
-
 export const { filter } = filterSlice.actions
 export default filterSlice.reducer
