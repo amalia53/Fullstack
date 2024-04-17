@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query'
-import { getAnecdotes } from './components/requests'
+import { useQuery} from '@tanstack/react-query'
+import { getAnecdotes } from './requests'
 import AnecdoteForm from './components/AnecdoteForm'
 import Notification from './components/Notification'
 
@@ -15,7 +15,7 @@ const App = () => {
     retry: 2
   })
   console.log(JSON.parse(JSON.stringify(result)))
-  
+
   if (result.isLoading) {
     return <div>loading data..</div>
   }
@@ -29,10 +29,10 @@ const App = () => {
   return (
     <div>
       <h3>Anecdote app</h3>
-    
+
       <Notification />
       <AnecdoteForm />
-    
+
       {anecdotes.map(anecdote =>
         <div key={anecdote.id}>
           <div>
