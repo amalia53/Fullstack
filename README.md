@@ -60,7 +60,17 @@
 
   [Unicafe](https://github.com/amalia53/Fullstack/tree/main/part6/unicafe-redux)
   
-  [Anecdotes](https://github.com/amalia53/Fullstack/tree/main/part6/redux-anecdotes)
+  [Redux Anecdotes](https://github.com/amalia53/Fullstack/tree/main/part6/redux-anecdotes)
+</details>
+
+  [Query Anecdotes](https://github.com/amalia53/Fullstack/tree/main/part6/query-anecdotes)
+</details>
+
+[Osa 7](https://github.com/amalia53/Fullstack/tree/main/part7)
+<details>
+  <summary>Tehtävät</summary>
+  
+  [Routed Anecdotes](https://github.com/amalia53/Fullstack/tree/main/part7/routed-anecdotes)
 </details>
 
 ### Skipatut tehtävät
