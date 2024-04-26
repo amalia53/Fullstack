@@ -6,22 +6,21 @@ import {
 } from 'react-router-dom'
 
 const Menu = ({ anecdotes }) => {
-  console.log(anecdotes)
   const padding = {
     paddingRight: 5
   }
   return (
     <Router>
       <div>
-        <Link href='#' style={padding} to="/anecdotes">anecdotes</Link>
+        <Link href='#' style={padding} to="/">anecdotes</Link>
         <Link href='#' style={padding} to="/createnew">create new</Link>
-        <Link href='#' style={padding} to="/">about</Link>
+        <Link href='#' style={padding} to="/about">about</Link>
       </div>
 
       <Routes>
-        <Route path="/anecdotes" element={<AnecdoteList anecdotes={anecdotes} />} />
+        <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
         <Route path="/createnew" element={<CreateNew />} />
-        <Route path="/" element={<About />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </Router >
   )
