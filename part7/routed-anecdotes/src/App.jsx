@@ -6,7 +6,7 @@ import {
   useParams
 } from 'react-router-dom'
 
-const Menu = ({ anecdotes }) => {
+const Menu = ({ anecdotes, addNew }) => {
   const padding = {
     paddingRight: 5
   }
@@ -21,7 +21,7 @@ const Menu = ({ anecdotes }) => {
       <Routes>
         <Route path="/anecdotes/:id" element={<Anecdote anecdotes={anecdotes} />} />
         <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
-        <Route path="/createnew" element={<CreateNew />} />
+        <Route path="/createnew" element={<CreateNew addNew={addNew} />} />
         <Route path="/about" element={<About />} />
       </Routes>
     </Router >
@@ -157,8 +157,7 @@ const App = () => {
   return (
     <div>
       <h1>Software anecdotes</h1>
-      <Menu anecdotes={anecdotes} />
-
+      <Menu anecdotes={anecdotes} addNew={addNew} />
       <Footer />
     </div>
   )
