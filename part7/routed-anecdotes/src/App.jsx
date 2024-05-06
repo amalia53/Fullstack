@@ -96,6 +96,14 @@ const CreateNew = (props) => {
     setTimeout(() => props.setNotification(null), 5000)
   }
 
+  const reset = (e) => {
+    console.log("clicked")
+    e.preventDefault
+    content.reset()
+    author.reset()
+    info.reset()
+  }
+
   return (
     <div>
       <h2>create a new anecdote</h2>
@@ -112,8 +120,9 @@ const CreateNew = (props) => {
           url for more info
           <input {...info} />
         </div>
-        <button>create</button>
+        <button type="submit">create</button>
       </form>
+      <button onClick={reset}>reset</button>
     </div>
   )
 
