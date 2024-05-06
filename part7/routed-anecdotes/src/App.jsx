@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useField } from './hooks'
 
 import {
   BrowserRouter as Router,
@@ -22,7 +23,7 @@ const Menu = ({ anecdotes, addNew, setNotification }) => {
       <Routes>
         <Route path="/anecdotes/:id" element={<Anecdote anecdotes={anecdotes} />} />
         <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
-        <Route path="/createnew" element={<CreateNew addNew={addNew} setNotification={setNotification}/>} />
+        <Route path="/createnew" element={<CreateNew addNew={addNew} setNotification={setNotification} />} />
         <Route path="/about" element={<About />} />
       </Routes>
     </Router >
@@ -32,7 +33,6 @@ const Menu = ({ anecdotes, addNew, setNotification }) => {
 const Anecdote = ({ anecdotes }) => {
   const id = useParams().id
   const anecdote = anecdotes.find(n => n.id === Number(id))
-  console.log(anecdote)
   return (
     <div>
       <h2>{anecdote.content}</h2>
@@ -79,21 +79,20 @@ const Footer = () => (
 
 const CreateNew = (props) => {
   const navigate = useNavigate()
-  const [content, setContent] = useState('')
-  const [author, setAuthor] = useState('')
-  const [info, setInfo] = useState('')
-
+  const content = useField('text')
+  const author = useField('text')
+  const info = useField('text')
 
   const handleSubmit = (e) => {
     e.preventDefault()
     props.addNew({
-      content,
-      author,
-      info,
+      content: content.value,
+      author: author.value,
+      info: info.value,
       votes: 0
     })
     navigate("/")
-    props.setNotification(`Created a new anecdote "${content}"`)
+    props.setNotification(`Created a new anecdote "${content.value}"`)
     setTimeout(() => props.setNotification(null), 5000)
   }
 
@@ -103,15 +102,15 @@ const CreateNew = (props) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+          <input {...content} />
         </div>
         <div>
           author
-          <input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <input {...author} />
         </div>
         <div>
           url for more info
-          <input name='info' value={info} onChange={(e) => setInfo(e.target.value)} />
+          <input {...info} />
         </div>
         <button>create</button>
       </form>
@@ -162,11 +161,11 @@ const App = () => {
   return (
     <div>
       <h1>Software anecdotes</h1>
-      {notification === null 
+      {notification === null
         ? <div></div>
         : notification
       }
-      <Menu anecdotes={anecdotes} addNew={addNew} setNotification={setNotification}/>
+      <Menu anecdotes={anecdotes} addNew={addNew} setNotification={setNotification} />
       <Footer />
     </div>
   )
