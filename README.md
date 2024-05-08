@@ -70,9 +70,12 @@
   <summary>Tehtävät</summary>
   
   [Routed Anecdotes](https://github.com/amalia53/Fullstack/tree/main/part7/routed-anecdotes)
+
+  [Blogilista](https://github.com/amalia53/Fullstack/tree/main/part7/blogilista)
 </details>
 
 ### Skipatut tehtävät
 4.6.-4.7. 
 4.22-4.23
 5.23
+7.7-7.8
