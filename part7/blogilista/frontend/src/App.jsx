@@ -1,4 +1,5 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNotificationDispatch } from './NotificationContext'
 import Blog from './components/Blog'
 import loginService from './services/login'
@@ -8,13 +9,10 @@ import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 
 const App = () => {
-  const [blogs, setBlogs] = useState([])
   const [createVisible, setCreateVisible] = useState(false)
-  const dispatch = useNotificationDispatch()
 
-  useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs))
-  }, [])
+  const queryClient = useQueryClient()
+  const dispatch = useNotificationDispatch()
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
@@ -64,47 +62,72 @@ const App = () => {
     setUser(null)
   }
 
-  const handleCreation = async (blogObject) => {
-    try {
-      const added = await blogService.create(blogObject)
-      setNotification({ type: 'ADD', blog: added })
-      updateBlogs()
-      setCreateVisible(false)
-    } catch (e) {
+  const createNewMutation = useMutation({
+    mutationFn: blogService.create,
+    onSuccess: (newBlog) => {
+      queryClient.invalidateQueries('blogs')
+      setNotification({ type: 'ADD', blog: newBlog })
+    },
+    onError: (e) => {
       setNotification({ type: 'FAILED', errormsg: e.response.data.error })
-    }
+    },
+  })
+
+  const handleCreation = async (blogObject) => {
+    createNewMutation.mutate(blogObject)
+    setCreateVisible(false)
   }
+
+  const likeBlogMutation = useMutation({
+    mutationFn: blogService.updateLikes,
+    onSuccess: (updated) => {
+      queryClient.invalidateQueries('blogs')
+      setNotification({ type: 'LIKE', blog: updated })
+    },
+    onError: () => {
+      setNotification({ type: 'LIKEFAILED' })
+    },
+  })
 
   const handleLike = async (blogObject) => {
-    try {
-      const updated = await blogService.updateLikes(blogObject)
-      setNotification({ type: 'LIKE', blog: updated })
-      updateBlogs()
-    } catch (e) {
-      setNotification({ type: 'LIKEFAILED' })
-    }
+    likeBlogMutation.mutate(blogObject)
   }
+
+  const deleteBlogMutation = useMutation({
+    mutationFn: blogService.deleteBlog,
+    onSuccess: () => {
+      queryClient.invalidateQueries('blogs')
+    },
+    onError: (e) => {
+      setNotification({ type: 'FAILED', errormsg: e.response.data.error })
+    },
+  })
 
   const handleDeletion = async (blogObject) => {
-    try {
-      if (
-        window.confirm(
-          `Are you sure you want to delete ${blogObject.title} by ${blogObject.author}`,
-        )
-      ) {
-        const deleted = await blogService.deleteBlog(blogObject)
-        setNotification({ type: 'DELETE', blog: blogObject })
-        updateBlogs()
-      }
-    } catch (e) {
-      setNotification({ type: 'FAILED', errormsg: e.response.data.error })
+    if (
+      window.confirm(
+        `Are you sure you want to delete ${blogObject.title} by ${blogObject.author}`,
+      )
+    ) {
+      deleteBlogMutation.mutate(blogObject)
+      setNotification({ type: 'DELETE', blog: blogObject })
     }
   }
 
-  const updateBlogs = async () => {
-    const newBlogs = await blogService.getAll()
-    setBlogs(newBlogs)
+  const blogResult = useQuery({
+    queryKey: ['blogs'],
+    queryFn: blogService.getAll,
+    retry: 2,
+  })
+
+  if (blogResult.isLoading) {
+    return <div>loading data..</div>
   }
+
+  if (blogResult.isError) {
+    return <div>Error: {'Server error'}</div>
+  }
+  const blogs = blogResult.data
 
   function compareByLikes(a, b) {
     if (a.likes > b.likes) return -1
