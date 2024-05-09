@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { useNotificationDispatch } from './NotificationContext'
 import Blog from './components/Blog'
 import loginService from './services/login'
 import blogService from './services/blogs'
@@ -8,9 +9,8 @@ import BlogForm from './components/BlogForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [message, setMessage] = useState(null)
-  const [isError, setIsError] = useState(false)
   const [createVisible, setCreateVisible] = useState(false)
+  const dispatch = useNotificationDispatch()
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs))
@@ -29,6 +29,13 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
+  const setNotification = (notification) => {
+    dispatch(notification)
+    setTimeout(() => {
+      dispatch({ type: 'NULLIFY' })
+    }, 5000)
+  }
+
   const handleLogin = async (event) => {
     event.preventDefault()
 
@@ -43,15 +50,10 @@ const App = () => {
       setUser(user)
       setUsername('')
       setPassword('')
+      console.log('logging in with', username)
     } catch (e) {
-      setIsError(true)
-      setMessage('Wrong credentials')
-      setTimeout(() => {
-        setMessage(null)
-      }, 4000)
-      setTimeout(() => setIsError(false), 4000)
+      setNotification({ type: 'BADLOGIN' })
     }
-    console.log('logging in with', username)
   }
 
   const handleLogout = async (event) => {
@@ -65,37 +67,21 @@ const App = () => {
   const handleCreation = async (blogObject) => {
     try {
       const added = await blogService.create(blogObject)
-      setMessage('A new blog added')
-      setTimeout(() => {
-        setMessage(null)
-      }, 4000)
+      setNotification({ type: 'ADD', blog: added })
       updateBlogs()
       setCreateVisible(false)
     } catch (e) {
-      setIsError(true)
-      setMessage(e.response.data.error)
-      setTimeout(() => {
-        setMessage(null)
-      }, 4000)
-      setTimeout(() => setIsError(false), 4000)
+      setNotification({ type: 'FAILED', errormsg: e.response.data.error })
     }
   }
 
   const handleLike = async (blogObject) => {
     try {
       const updated = await blogService.updateLikes(blogObject)
-      setMessage('Likes updated')
-      setTimeout(() => {
-        setMessage(null)
-      }, 4000)
+      setNotification({ type: 'LIKE', blog: updated })
       updateBlogs()
     } catch (e) {
-      setIsError(true)
-      setMessage('Update failed')
-      setTimeout(() => {
-        setMessage(null)
-      }, 4000)
-      setTimeout(() => setIsError(false), 4000)
+      setNotification({ type: 'LIKEFAILED' })
     }
   }
 
@@ -107,19 +93,11 @@ const App = () => {
         )
       ) {
         const deleted = await blogService.deleteBlog(blogObject)
-        setMessage(`Deleted ${blogObject.title} by ${blogObject.author}`)
-        setTimeout(() => {
-          setMessage(null)
-        }, 4000)
+        setNotification({ type: 'DELETE', blog: blogObject })
         updateBlogs()
       }
     } catch (e) {
-      setIsError(true)
-      setMessage(e.response.data.error)
-      setTimeout(() => {
-        setMessage(null)
-      }, 4000)
-      setTimeout(() => setIsError(false), 4000)
+      setNotification({ type: 'FAILED', errormsg: e.response.data.error })
     }
   }
 
@@ -163,7 +141,7 @@ const App = () => {
       <div>
         <h1>Blogs</h1>
         <h2>Log in</h2>
-        <Notification message={message} isError={isError} />
+        <Notification />
         <LoginForm
           username={username}
           password={password}
@@ -179,7 +157,7 @@ const App = () => {
         <h2>Blogs</h2>
         <div>{user.name} is logged in</div>
         <button onClick={handleLogout}>LOGOUT</button>
-        <Notification message={message} isError={isError} />
+        <Notification />
         {createBlogForm()}
         {blogs.sort(compareByLikes).map((blog) => (
           <Blog
