@@ -34,18 +34,21 @@ const useCountry = (name) => {
         });
     }
   }, [name]);
+  if (!country) {
+    return null;
+  }
 
   return { country, found };
 };
 
 const Country = ({ country, found }) => {
-  if (!country) {
-    return null;
-  }
-
   if (!found) {
     console.log("not found");
     return <div>not found...</div>;
+  }
+
+  if (!country) {
+    return null;
   }
 
   return (
