@@ -125,7 +125,13 @@ const typeDefs = `
     published: Int!
     author: String!
     genres: [String!]!
-    ):Book
+    ): Book
+  }
+  type Mutation {
+    editAuthor(
+    name: String!
+    setBornTo: Int!
+    ): Author
   }
 `;
 
@@ -159,6 +165,14 @@ const resolvers = {
         authors = authors.concat(author);
       }
       return book;
+    },
+    editAuthor: (root, args) => {
+      const authorToEdit = authors.find((author) => author.name === args.name);
+      const newAuthor = { ...authorToEdit, born: args.setBornTo };
+      authors = authors.filter((author) => author.name !== args.name);
+      authors = authors.concat(newAuthor);
+      console.log(newAuthor);
+      return newAuthor;
     },
   },
 };
