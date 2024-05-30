@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { UPDATE_AUTHOR, ALL_AUTHORS } from "../queries";
 import { useMutation } from "@apollo/client";
+import Select from "react-select";
 
 /* eslint-disable react/prop-types */
 const Authors = (props) => {
@@ -17,11 +18,11 @@ const Authors = (props) => {
 
   const authors = props.authors;
 
+  // const authorOptions = authors.map(author => { value: author.name, label: author.name })
+
   const submit = async (event) => {
     event.preventDefault();
     const setBornTo = birthyear;
-
-    console.log(name);
 
     updateAuthor({ variables: { name, setBornTo } });
 
@@ -52,10 +53,13 @@ const Authors = (props) => {
       <form onSubmit={submit}>
         <div>
           name
-          <input
-            value={name}
-            onChange={({ target }) => setName(target.value)}
-          />
+          <select onChange={({ target }) => setName(target.value)}>
+            {authors.map((author) => (
+              <option key={author.name} value={author.name}>
+                {author.name}
+              </option>
+            ))}
+          </select>
         </div>
         <div>
           born
