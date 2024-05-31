@@ -1,6 +1,6 @@
 const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
-
+const { GraphQLError } = require("graphql");
 const { v1: uuid } = require("uuid");
 
 const mongoose = require("mongoose");
@@ -8,6 +8,7 @@ mongoose.set("strictQuery", false);
 
 const Book = require("./models/book");
 const Author = require("./models/author");
+const { graphql } = require("graphql");
 
 require("dotenv").config();
 
@@ -99,9 +100,11 @@ const resolvers = {
           await author.save();
         } catch (e) {
           throw new GraphQLError("Saving author failed", {
-            code: "BAD_USER_INPUT",
-            invalidArgs: args,
-            e,
+            extensions: {
+              code: "BAD_USER_INPUT",
+              invalidArgs: args,
+              e,
+            },
           });
         }
       }
@@ -113,18 +116,30 @@ const resolvers = {
         await book.save();
       } catch (e) {
         throw new GraphQLError("Saving book failed", {
-          code: "BAD_USER_INPUT",
-          invalidArgs: args,
-          e,
+          extensions: {
+            code: "BAD_USER_INPUT",
+            invalidArgs: args.title,
+            e,
+          },
         });
       }
       return book;
     },
     editAuthor: async (root, args) => {
-      // const authorToEdit = authors.find((author) => author.name === args.name);
       const authorToEdit = await Author.findOne({ name: args.name });
       authorToEdit.born = args.setBornTo;
-      return authorToEdit.save();
+      try {
+        await authorToEdit.save();
+      } catch (error) {
+        throw new GraphQLError("Editing failed", {
+          extensions: {
+            code: "BAD_USER_INPUT",
+            invalidArgs: args.name,
+            error,
+          },
+        });
+      }
+      return authorToEdit;
     },
   },
 };
