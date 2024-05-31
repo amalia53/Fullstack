@@ -65,22 +65,27 @@ const resolvers = {
     bookCount: async () => Book.collection.countDocuments(),
     authorCount: async () => Author.collection.countDocuments(),
     allAuthors: async () => Author.find({}),
-    allBooks: async (root, args) => Book.find({}).populate("author"),
-    //   {
-    //   let res =
-    //     args.author === undefined
-    //       ? books
-    //       : books.filter((book) => book.author === args.author);
-    //   res =
-    //     args.genre === undefined
-    //       ? res
-    //       : res.filter((book) => book.genres.includes(args.genre));
-    //   return res;
-    // }
+    allBooks: async (root, args) => {
+      const books = await Book.find({}).populate("author");
+      let res =
+        args.author === undefined
+          ? books
+          : books.filter((book) => book.author.name === args.author);
+      res =
+        args.genre === undefined
+          ? res
+          : res.filter((book) => book.genres.includes(args.genre));
+      return res;
+    },
   },
   Author: {
-    bookCount: async (root) =>
-      Book.find({}).filter((book) => book.author === root.name).length,
+    bookCount: async (root) => {
+      const books = await Book.find({}).populate("author");
+      const booksByAuthor = books.filter(
+        (book) => book.author.name === root.name
+      );
+      return booksByAuthor.length;
+    },
   },
   Mutation: {
     addBook: async (root, args) => {
