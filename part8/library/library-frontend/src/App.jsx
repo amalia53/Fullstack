@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Authors from './components/Authors';
 import Books from './components/Books';
 import NewBook from './components/NewBook';
+import Login from './components/Login';
 
 import { gql, useQuery } from '@apollo/client';
 
@@ -41,12 +42,15 @@ const App = () => {
       <div>
         <button onClick={() => setPage('authors')}>authors</button>
         <button onClick={() => setPage('books')}>books</button>
+        <button onClick={() => setPage('login')}>login</button>
         <button onClick={() => setPage('add')}>add book</button>
       </div>
 
       <Authors show={page === 'authors'} authors={authorRes.data.allAuthors} />
 
       <Books show={page === 'books'} books={bookRes.data.allBooks} />
+
+      <Login show={page === 'login'} />
 
       <NewBook show={page === 'add'} />
     </div>
