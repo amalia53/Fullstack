@@ -173,6 +173,7 @@ const resolvers = {
         ...args,
         author: author,
       });
+      console.log(book);
       try {
         await book.save();
       } catch (e) {
@@ -186,7 +187,7 @@ const resolvers = {
       }
       return book;
     },
-    editAuthor: async (root, args) => {
+    editAuthor: async (root, args, context) => {
       const currentUser = context.currentUser;
       if (!currentUser) {
         throw new AuthenticationError("You're not logged in");
