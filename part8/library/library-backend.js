@@ -173,7 +173,6 @@ const resolvers = {
         ...args,
         author: author,
       });
-      console.log(book);
       try {
         await book.save();
       } catch (e) {
