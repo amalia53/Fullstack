@@ -4,31 +4,10 @@ import Authors from './components/Authors';
 import Books from './components/Books';
 import NewBook from './components/NewBook';
 import Login from './components/Login';
+import { ALL_AUTHORS, ALL_BOOKS } from './queries';
 
-import { gql, useQuery } from '@apollo/client';
-
-const ALL_AUTHORS = gql`
-  query {
-    allAuthors {
-      name
-      born
-      bookCount
-    }
-  }
-`;
-
-const ALL_BOOKS = gql`
-  query {
-    allBooks {
-      title
-      author {
-        name
-      }
-      published
-      genres
-    }
-  }
-`;
+import { useQuery } from '@apollo/client';
+import Recommendations from './components/Recommendations';
 
 const App = () => {
   const [page, setPage] = useState('authors');
@@ -45,6 +24,7 @@ const App = () => {
     setToken(null);
     localStorage.clear();
     client.resetStore();
+    window.location.href = '/';
   };
 
   return (
@@ -57,6 +37,7 @@ const App = () => {
         ) : (
           <div>
             <button onClick={() => setPage('add')}>add book</button>
+            <button onClick={() => setPage('recs')}>recommendations</button>
             <button onClick={logout}>logout</button>
           </div>
         )}
@@ -73,6 +54,8 @@ const App = () => {
       <Login show={page === 'login'} setToken={setToken} />
 
       <NewBook show={page === 'add'} />
+
+      <Recommendations show={page === 'recs'} books={bookRes.data.allBooks} />
     </div>
   );
 };
