@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
-import { LOGIN } from '../queries';
+import { LOGIN, FAVORITE_GENRE } from '../queries';
 
 const Login = (props) => {
   const [username, setUsername] = useState('');
@@ -12,6 +12,7 @@ const Login = (props) => {
     onError: (error) => {
       console.log('Following error when login in: ', error);
     },
+    refetchQueries: [{ query: FAVORITE_GENRE }],
   });
 
   useEffect(() => {

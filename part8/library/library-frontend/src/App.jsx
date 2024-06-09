@@ -55,7 +55,7 @@ const App = () => {
 
       <NewBook show={page === 'add'} />
 
-      <Recommendations show={page === 'recs'} books={bookRes.data.allBooks} />
+      <Recommendations show={page === 'recs'} token={token} />
     </div>
   );
 };

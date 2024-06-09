@@ -1,15 +1,19 @@
+import { useQuery } from '@apollo/client';
 import { useState } from 'react';
+import { ALL_BOOKS_OF_GENRE } from '../queries';
 
 const Books = (props) => {
   const [filter, setFilter] = useState(null);
+
+  const bookRes = useQuery(ALL_BOOKS_OF_GENRE, {
+    variables: { genre: filter },
+  });
 
   if (!props.show) {
     return null;
   }
 
-  const books = filter
-    ? props.books.filter((book) => book.genres.includes(filter))
-    : props.books;
+  const books = filter && bookRes.data ? bookRes.data.allBooks : props.books;
 
   let genres = [];
   for (const book of props.books) {

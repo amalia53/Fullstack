@@ -98,7 +98,7 @@ const resolvers = {
       return res;
     },
     me: (root, args, context) => {
-      console.log(context);
+      console.log('user: ', context.currentUser.username);
       return context.currentUser;
     },
   },
