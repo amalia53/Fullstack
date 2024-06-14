@@ -74,6 +74,21 @@
   [Blogilista](https://github.com/amalia53/Fullstack/tree/main/part7/blogilista)
 </details>
 
+[Osa 8](https://github.com/amalia53/Fullstack/tree/main/part8)
+<details>
+  <summary>Tehtävät</summary>
+  
+  [Library](https://github.com/amalia53/Fullstack/tree/main/part8/library)
+</details>
+
+[Osa 9](https://github.com/amalia53/Fullstack/tree/main/part9)
+<details>
+  <summary>Tehtävät</summary>
+  
+  [tasks](https://github.com/amalia53/Fullstack/tree/main/part9/tasks)
+
+</details>
+
 ### Skipatut tehtävät
 4.6.-4.7. 
 4.22-4.23
