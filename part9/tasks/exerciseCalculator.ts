@@ -10,13 +10,13 @@ const isArrayOfNumbers = (
     listAsString[0] === '[' &&
     listAsString[listAsString.length - 1] === ']'
   ) {
-    var arr: number[] = [];
+    let arr: number[] = [];
     if (
       listAsString.indexOf('[', 0) > -1 &&
       listAsString.indexOf(']', 0) > -1
     ) {
       try {
-        arr = JSON.parse(listAsString);
+        arr = JSON.parse(listAsString) as number[];
       } catch (error) {
         throw new Error('The given list is not in right form');
       }
