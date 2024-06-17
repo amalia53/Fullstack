@@ -10,7 +10,7 @@ const isArrayOfNumbers = (
     listAsString[0] === '[' &&
     listAsString[listAsString.length - 1] === ']'
   ) {
-    var arr = [];
+    var arr: number[] = [];
     if (
       listAsString.indexOf('[', 0) > -1 &&
       listAsString.indexOf(']', 0) > -1
@@ -22,6 +22,7 @@ const isArrayOfNumbers = (
       }
       return { isArray: true, list: arr };
     }
+    return { isArray: false, list: arr };
   } else {
     return { isArray: false, list: [] };
   }
