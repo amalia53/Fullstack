@@ -21,7 +21,7 @@ function squareIt(number: number): number {
   return number ** 2;
 }
 
-const calculateBmi = (height: number, weight: number): string => {
+export const calculateBmi = (height: number, weight: number): string => {
   const bmi = weight / squareIt(height / 100);
   if (bmi >= 30) {
     return 'Obese';
@@ -46,3 +46,5 @@ try {
   }
   console.log(eMessage);
 }
+
+export default 'default';
