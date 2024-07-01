@@ -3,7 +3,7 @@ interface ExerciseInputValues {
   target: number;
 }
 
-const isArrayOfNumbers = (
+export const isArrayOfNumbers = (
   listAsString: string
 ): { isArray: boolean; list: number[] } => {
   if (
@@ -66,7 +66,10 @@ const getRatingDescription = (rating: number): string => {
   else return "this wasn't great, but keep on trying!";
 };
 
-const calculateExercises = (args: number[], target: number): ExerciseValues => {
+export const calculateExercises = (
+  args: number[],
+  target: number
+): ExerciseValues => {
   const periodlength = args.length;
   const trainingDays = args.filter((hours) => hours !== 0).length;
   const average = args.reduce((a, b) => a + b, 0) / periodlength || 0;
@@ -94,3 +97,5 @@ try {
   }
   console.log(errorMessage);
 }
+
+export default 'default';
